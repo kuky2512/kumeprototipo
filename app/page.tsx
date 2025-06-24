@@ -67,7 +67,8 @@ interface Feria {
   id: string
   nombre: string
   ubicacion: string
-  horario: string
+  dias: string[]
+  horarios: string
   descripcion: string
   productos: string[]
   imagen: string
@@ -93,6 +94,7 @@ export default function KumeWebsite() {
   const [favorites, setFavorites] = useState<string[]>([])
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedProductFilter, setSelectedProductFilter] = useState("")
+  const [selectedDayFilter, setSelectedDayFilter] = useState("")
 
   // Categorías de productos
   const productCategories = [
@@ -115,7 +117,7 @@ export default function KumeWebsite() {
     "orgánico",
     "sustentable",
     "diseño",
-    "ceramica",
+    "cerámica",
     "madera",
     "cuero",
     "carpintería",
@@ -130,7 +132,7 @@ export default function KumeWebsite() {
   ].sort()
 
   // Días de la semana para filtros
-  // const dayCategories = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
+  const dayCategories = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
 
   // Datos de ferias con etiquetas y imágenes
   const ferias: Feria[] = [
@@ -138,7 +140,8 @@ export default function KumeWebsite() {
       id: "feria-1",
       nombre: "Feria Artesanal",
       ubicacion: "Plaza Independencia, Belgrano 500, Tandil",
-      horario: "Sábados y domingos de 10 a 21hs",
+      dias: ["sábado", "domingo"],
+      horarios: "10-21hs",
       descripcion: "Espacio dedicado a la artesanía local y productos únicos de la región.",
       productos: ["artesanías", "tejidos", "joyería", "diseño", "sustentable"],
       imagen: "/images/feria-artesanal.jpg",
@@ -148,7 +151,8 @@ export default function KumeWebsite() {
       id: "feria-2",
       nombre: "Feria de Pulgas",
       ubicacion: "Plaza San Martín, Av. Rivadavia y Monseñor de Andrea, Tandil",
-      horario: "Fines de semana",
+      dias: ["sábado", "domingo"],
+      horarios: "Horarios variables",
       descripcion: "Ofrece artesanías, antigüedades, objetos vintage y comidas típicas regionales.",
       productos: ["antigüedades", "vintage", "libros", "comida", "productos regionales"],
       imagen: "/images/feria-de-pulgas.jpg",
@@ -158,8 +162,8 @@ export default function KumeWebsite() {
       id: "feria-3",
       nombre: "Feria Mujeres Emprendedoras",
       ubicacion: "Plaza Moreno (Av. Illia), Tandil",
-      horario: "Sabados y Domingos 12 a 20hs (horarios variables)",
-      descripcion:
+      dias: ["sábado", "domingo"],
+      horarios: "12-20hs (horarios variables)",      descripcion:
         "Programa municipal para exhibir y comercializar creaciones de mujeres, promoviendo el autoempleo y economías equitativas.",
       productos: ["indumentaria", "artesanías", "comida", "joyería", "familiar", "orgánico"],
       imagen: "/images/feria-mujeres-emprendedoras.jpg",
@@ -170,7 +174,8 @@ export default function KumeWebsite() {
       id: "feria-4",
       nombre: "Feria de los Artesanos",
       ubicacion: "Piedra Movediza, Tandil",
-      horario: "Lunes a Domingo de 10 a 18hs",
+      dias: ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"],
+      horarios: "10-18hs",
       descripcion: "Ofrece variedad de artículos artesanales, incluyendo cerámica, tejidos, madera, cuero y productos gastronómicos locales.",
       productos: ["antigüedades", "ceramica", "tejidos", "comida", "productos regionales"],
       imagen: "/images/feria-de-los-artesanos.jpg",
@@ -180,7 +185,8 @@ export default function KumeWebsite() {
       id: "feria-5",
       nombre: "Feria de moda Circular",
       ubicacion: "Plaza Martin Rodriguez, Av. Santamarina & Sarmiento, Tandil",
-      horario: "Sabados de 14 a 20hs",
+      dias: ["sábado"],
+      horarios: "14-20hs",
       descripcion: "Ofrece variedad de artículos de indumentaria.",
       productos: ["ropa", "indumentaria", "vintage", "sustentable", "diseño"],
       imagen: "/images/feria-de-moda-circular.jpg",
@@ -190,7 +196,8 @@ export default function KumeWebsite() {
       id: "feria-6",
       nombre: "Feria de la Economía Social y Solidaria",
       ubicacion: "Centro Cultural Universitario, Yrigoyen 662, Tandil",
-      horario: "viernes 16 a 21hs, sábado y domingo 9 a 13 y 16 a 21hs",
+      dias: ["viernes", "sábado", "domingo"],
+      horarios: "16-21hs, Finde 9-13 y 16-21hs",
       descripcion: "Bajo el lema “Producción y Consumo Responsable”, esta feria reúne a emprendedores locales que ofrecen productos sustentables y de comercio justo.",
       productos: ["tejidos", "ropa", "indumentaria", "vintage", "sustentable", "diseño", "comida", "productos regionales"],
       imagen: "/images/feria-de-la-economia-social-y-solidaria.jpg",
@@ -200,7 +207,8 @@ export default function KumeWebsite() {
       id: "feria-7",
       nombre: "Feria al Rescate",
       ubicacion: "Acero Eventos, 25 de mayo 851, Tandil",
-      horario: "Domingo 15hs",
+      dias: ["domingo"],
+      horarios: "15hs",
       descripcion: "Se hace una vez por mes, feria de economía circular que promueve el rescate de productos, fomentando la reutilización y el consumo responsable.",
       productos: ["ropa", "indumentaria", "vintage", "sustentable", "diseño"],
       imagen: "/images/feria-al-rescate.jpg",
@@ -210,7 +218,8 @@ export default function KumeWebsite() {
       id: "feria-8",
       nombre: "Mercado Artesanal",
       ubicacion: "Av. Saavedra Lamas s/n. Lago del Fuerte, Tandil",
-      horario: "Sabados y Domingos de 10 a 20hs",
+      dias: ["sábado", "domingo"],
+      horarios: "10-20hs",
       descripcion: "Producción artesanal local de diferentes rubros.",
       productos: ["artesanías", "tejidos", "joyería", "diseño", "sustentable", "comida", "productos regionales"],
       imagen: "/images/mercado-artesanal.jpg",
@@ -386,40 +395,92 @@ export default function KumeWebsite() {
 
       const matchesProduct = !selectedProductFilter || item.productos.includes(selectedProductFilter)
 
-      return matchesSearch && matchesProduct
+      const matchesDay = !selectedDayFilter || item.dias.includes(selectedDayFilter)
+
+      return matchesSearch && matchesProduct && matchesDay
     })
+  }
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [showLoginModal, setShowLoginModal] = useState(false)
+  const [loginForm, setLoginForm] = useState({ email: '', password: '' })
+
+  // Funciones para el login
+  const handleLoginSubmit = (e) => {
+    e.preventDefault()
+    setIsLoggedIn(true)
+    setShowLoginModal(false)
+    setLoginForm({ email: '', password: '' })
+  }
+
+  const handleLogout = () => {
+    setIsLoggedIn(false)
+  }
+
+  const handleLoginInputChange = (field, value) => {
+    setLoginForm(prev => ({ ...prev, [field]: value }))
   }
 
   // Componente de navegación
   const renderNavigation = () => (
-    <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-3">
-            <Image src="/images/kume-logo.png" alt="Küme Logo" width={40} height={40} className="rounded-full" />
-            <span className="text-2xl font-bold text-teal-600">küme</span>
-          </div>
+  <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex justify-between items-center h-16">
+        <div className="flex items-center space-x-3">
+          <Image src="/images/kume-logo.png" alt="Küme Logo" width={40} height={40} className="rounded-full" />
+          <span className="text-2xl font-bold text-teal-600">küme</span>
+        </div>
 
-          <div className="hidden md:flex space-x-8">
-            {[
-              { id: "home", label: "Inicio" },
-              { id: "about", label: "Quiénes Somos" },
-              { id: "fairs", label: "Ferias y Emprendimientos" },
-              { id: "entrepreneurs", label: "Nuestros Emprendedores" },
-              { id: "faq", label: "Preguntas Frecuentes" },
-              { id: "contact", label: "Contacto" },
-            ].map((item) => (
+        <div className="hidden md:flex space-x-8">
+          {[
+            { id: "home", label: "Inicio" },
+            { id: "about", label: "Quiénes Somos" },
+            { id: "fairs", label: "Ferias y Emprendimientos" },
+            { id: "entrepreneurs", label: "Nuestros Emprendedores" },
+            { id: "faq", label: "FAQ" },
+            { id: "contact", label: "Contacto" },
+          ].map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setActiveSection(item.id)}
+              className={`text-sm font-medium transition-colors hover:text-teal-600 ${
+                activeSection === item.id ? "text-teal-600 border-b-2 border-teal-600" : "text-gray-700"
+              }`}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex items-center space-x-4">
+          {isLoggedIn ? (
+            <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center">
+                  <svg className="w-5 h-5 text-teal-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-gray-700">Hola Usuario</span>
+              </div>
               <button
-                key={item.id}
-                onClick={() => setActiveSection(item.id)}
-                className={`text-sm font-medium transition-colors hover:text-teal-600 ${
-                  activeSection === item.id ? "text-teal-600 border-b-2 border-teal-600" : "text-gray-700"
-                }`}
+                onClick={handleLogout}
+                className="text-sm text-gray-500 hover:text-gray-700"
               >
-                {item.label}
+                Salir
               </button>
-            ))}
-          </div>
+            </div>
+          ) : (
+            <button
+              onClick={() => setShowLoginModal(true)}
+              className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-teal-600 border border-teal-600 rounded-md hover:bg-teal-50 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+              </svg>
+              <span>Iniciar Sesión</span>
+            </button>
+          )}
 
           <div className="md:hidden">
             <select
@@ -437,11 +498,137 @@ export default function KumeWebsite() {
           </div>
         </div>
       </div>
-    </nav>
+    </div>
+
+    {/* Modal de Login */}
+    {showLoginModal && (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold text-gray-900">Iniciar Sesión</h2>
+            <button
+              onClick={() => setShowLoginModal(false)}
+              className="text-gray-400 hover:text-gray-600"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          
+          <form onSubmit={handleLoginSubmit} className="space-y-4">
+            <div>
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={loginForm.email}
+                onChange={(e) => handleLoginInputChange('email', e.target.value)}
+                required
+                className="mt-1"
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="password">Contraseña</Label>
+              <Input
+                id="password"
+                type="password"
+                value={loginForm.password}
+                onChange={(e) => handleLoginInputChange('password', e.target.value)}
+                required
+                className="mt-1"
+              />
+            </div>
+            
+            <div className="text-center space-y-2 py-2">
+              <button
+                type="button"
+                className="text-sm text-teal-600 hover:text-teal-800 hover:underline block w-full"
+              >
+                ¿Olvidaste tu contraseña?
+              </button>
+              <button
+                type="button"
+                className="text-sm text-teal-600 hover:text-teal-800 hover:underline block w-full"
+              >
+                ¿No tienes cuenta? Regístrate
+              </button>
+            </div>
+            
+            <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700">
+              Iniciar
+            </Button>
+          </form>
+        </div>
+      </div>
+    )}
+  </nav>
+)
+
+  // Componente de búsqueda y filtros PARA FERIAS
+  const renderSearchAndFilters = () => (
+    <div className="bg-gray-50 p-6 rounded-lg mb-8">
+      <div className="flex flex-col lg:flex-row gap-4">
+        <div className="flex-1">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Input
+              placeholder="Buscar por nombre..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+        </div>
+
+        <div className="flex gap-4">
+          <Select value={selectedProductFilter} onValueChange={setSelectedProductFilter}>
+            <SelectTrigger className="w-48">
+              <SelectValue placeholder="Filtrar por producto" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Todos los productos</SelectItem>
+              {productCategories.map((category) => (
+                <SelectItem key={category} value={category}>
+                  {category.charAt(0).toUpperCase() + category.slice(1)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select value={selectedDayFilter} onValueChange={setSelectedDayFilter}>
+            <SelectTrigger className="w-48">
+              <SelectValue placeholder="Filtrar por día" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Todos los días</SelectItem>
+              {dayCategories.map((day) => (
+                <SelectItem key={day} value={day}>
+                  {day.charAt(0).toUpperCase() + day.slice(1)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Button
+            variant="outline"
+            onClick={() => {
+              setSearchTerm("")
+              setSelectedProductFilter("")
+              setSelectedDayFilter("")
+            }}
+          >
+            <Filter className="h-4 w-4 mr-2" />
+            Limpiar
+          </Button>
+        </div>
+      </div>
+    </div>
   )
 
-  // Componente de búsqueda y filtros
-  const renderSearchAndFilters = () => (
+  // Componente de búsqueda y filtros PARA EMPRENDEDORES
+  const renderSearchAndFiltersEMP = () => (
     <div className="bg-gray-50 p-6 rounded-lg mb-8">
       <div className="flex flex-col lg:flex-row gap-4">
         <div className="flex-1">
@@ -485,6 +672,7 @@ export default function KumeWebsite() {
       </div>
     </div>
   )
+
 
   // Página de inicio
   const renderHome = () => (
@@ -834,9 +1022,16 @@ export default function KumeWebsite() {
                               </Button>
                             )}
                           </div>
-                          <div className="flex items-center text-gray-600">
+                          <div className="flex items-center text-gray-600 mb-2">
                             <Clock className="h-4 w-4 mr-2" />
-                            {feria.horario}
+                            <div className="flex flex-wrap gap-1 mr-2">
+                              {feria.dias.map((dia, index) => (
+                                <Badge key={index} variant="outline" className="text-xs capitalize">
+                                  {dia}
+                                </Badge>
+                              ))}
+                            </div>
+                            <span className="text-sm">• {feria.horarios}</span>
                           </div>
                         </div>
                         <Badge variant="secondary" className="bg-teal-100 text-teal-800">
@@ -852,7 +1047,7 @@ export default function KumeWebsite() {
                         <div className="flex flex-wrap gap-2">
                           {feria.productos.map((producto, index) => (
                             <Badge key={index} variant="secondary" className="text-xs bg-teal-100 text-teal-800">
-                              {producto}
+                              {producto.charAt(0).toUpperCase() + producto.slice(1)}
                             </Badge>
                           ))}
                         </div>
@@ -888,7 +1083,7 @@ export default function KumeWebsite() {
             </p>
           </div>
 
-          {renderSearchAndFilters()}
+          {renderSearchAndFiltersEMP()}
 
           <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
             {filteredEmprendedores.map((emprendedor) => (
