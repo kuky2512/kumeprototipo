@@ -1,5 +1,5 @@
 "use client"
-import { motion, useInView, useAnimation } from "framer-motion" //
+
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -33,6 +33,32 @@ const customStyles = `
   }
   .animate-spin-slow {
     animation: spin-slow 3s linear infinite;
+  }
+  
+  /* NUEVAS ANIMACIONES PARA LAS CAJITAS */
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+  }
+  .animate-slide-up-delay-1 {
+    animation: slideUp 0.8s ease-out 0.2s forwards;
+  }
+  .animate-slide-up-delay-2 {
+    animation: slideUp 0.8s ease-out 0.4s forwards;
+  }
+  /* Estado inicial invisible para las animaciones */
+  .opacity-0-initial {
+    opacity: 0;
+    transform: translateY(30px);
   }
 `;
 
@@ -102,6 +128,9 @@ export default function KumeWebsite() {
     "restauración",
     "decoración",
   ].sort()
+
+  // Días de la semana para filtros
+  // const dayCategories = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
 
   // Datos de ferias con etiquetas y imágenes
   const ferias: Feria[] = [
@@ -491,69 +520,88 @@ export default function KumeWebsite() {
       </section>
 
       {/* Servicios Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Nuestros Servicios</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Impulsamos lo autentico
+      <section className="py-20 bg-gradient-to-br from-teal-50 to-blue-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Título y descripción centrados */}
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Nuestros Servicios
+            </h2>
+            <h3 className="text-2xl font-semibold text-teal-600 mb-6">
+              Impulsamos lo auténtico
+            </h3>
+            <p className="text-lg text-gray-700 leading-relaxed max-w-4xl mx-auto">
+              Desde Küme, desarrollamos soluciones digitales con impacto territorial. Nuestro primer producto es una 
+              plataforma web que organiza y visibiliza ferias y emprendimientos de productos regionales de Tandil, 
+              conectando actores locales y promoviendo el consumo y turismo responsable. Esta herramienta funciona 
+              como un catálogo digital centralizado, donde los usuarios pueden descubrir y explorar la oferta local 
+              según sus intereses.
             </p>
           </div>
 
-          <div className="bg-gray-50 rounded-lg p-8">
-            <p className="text-gray-700 leading-relaxed mb-6">
-              Desde Küme, desarrollamos soluciones digitales con impacto territorial. Nuestro primer producto es una
-              plataforma web que organiza y visibiliza ferias y emprendimientos de productos regionales de Tandil,
-              conectando actores locales y promoviendo el consumo y turismo responsable. Esta herramienta funciona como
-              un catálogo digital centralizado, donde los usuarios pueden descubrir y explorar la oferta local según sus
-              intereses.
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Características Principales</h3>
-                <ul className="space-y-2 text-gray-700">
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-teal-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    Catálogo digital centralizado de ferias y emprendimientos
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-teal-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    Filtros por tipo de productos y categorías
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-teal-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    Información detallada con ubicación y horarios
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-teal-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    Sistema de favoritos para planificar visitas
-                  </li>
-                </ul>
+          {/* Cajitas con animaciones */}
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            
+            {/* Cajita 1: Características Principales */}
+            <div className="opacity-0-initial animate-slide-up bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-teal-100 rounded-full mb-4">
+                  <svg className="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-bold text-gray-900 mb-4">
+                  Características Principales
+                </h4>
               </div>
-
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Información Disponible</h3>
-                <ul className="space-y-2 text-gray-700">
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-teal-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    Perfiles completos de emprendedores
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-teal-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    Productos y servicios ofrecidos
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-teal-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    Horarios y días de participación
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-teal-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    Información de contacto directa
-                  </li>
-                </ul>
-              </div>
+              <ul className="space-y-3 text-gray-700">
+                <li className="flex items-start">
+                  <span className="flex-shrink-0 w-2 h-2 bg-teal-500 rounded-full mt-2 mr-3"></span>
+                  Catálogo digital centralizado de ferias y emprendimientos
+                </li>
+                <li className="flex items-start">
+                  <span className="flex-shrink-0 w-2 h-2 bg-teal-500 rounded-full mt-2 mr-3"></span>
+                  Filtros por tipo de productos y categorías
+                </li>
+                <li className="flex items-start">
+                  <span className="flex-shrink-0 w-2 h-2 bg-teal-500 rounded-full mt-2 mr-3"></span>
+                  Información detallada con ubicación y horarios
+                </li>
+                <li className="flex items-start">
+                  <span className="flex-shrink-0 w-2 h-2 bg-teal-500 rounded-full mt-2 mr-3"></span>
+                  Sistema de favoritos para planificar visitas
+                </li>
+              </ul>
             </div>
+
+            {/* Cajita 2: Información Disponible */}
+            <div className="opacity-0-initial animate-slide-up-delay-1 bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-4">
+                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-bold text-gray-900 mb-4">
+                  Información Disponible
+                </h4>
+              </div>
+              <ul className="space-y-3 text-gray-700">
+                <li className="flex items-start">
+                  <span className="flex-shrink-0 w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3"></span>
+                  Perfiles completos de emprendedores
+                </li>
+                <li className="flex items-start">
+                  <span className="flex-shrink-0 w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3"></span>
+                  Productos y servicios ofrecidos
+                </li>
+                <li className="flex items-start">
+                  <span className="flex-shrink-0 w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3"></span>
+                  Horarios y días de participación
+                </li>
+              </ul>
+            </div>
+
           </div>
         </div>
       </section>
