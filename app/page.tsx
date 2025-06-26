@@ -143,7 +143,7 @@ export default function KumeWebsite() {
       dias: ["sábado", "domingo"],
       horarios: "10-21hs",
       descripcion: "Espacio dedicado a la artesanía local y productos únicos de la región.",
-      productos: ["artesanías", "tejidos", "joyería", "diseño", "sustentable"],
+      productos: ["artesanías", "tejidos", "joyería", "diseño", "sustentable", "cuchillos", "madera", "cuero", "carpintería", "hojalatería"],
       imagen: "/images/feria-artesanal.jpg",
       googleMapsUrl: "https://maps.google.com/?q=Plaza+Independencia+Belgrano+500+Tandil"
     },
